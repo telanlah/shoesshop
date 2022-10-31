@@ -70,8 +70,6 @@ class ChatPage extends StatelessWidget {
       ));
     }
 
-
-    // 
     Widget content() {
       return Expanded(
         child: Container(
