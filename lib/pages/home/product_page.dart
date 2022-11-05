@@ -16,6 +16,18 @@ class _ProductPageState extends State<ProductPage> {
 
   int currentIndex = 0;
 
+  List familiarShoes = [
+    'assets/image_shoes.png',
+    'assets/image_shoes.png',
+    'assets/image_shoes.png',
+    'assets/image_shoes.png',
+    'assets/image_shoes.png',
+    'assets/image_shoes.png',
+    'assets/image_shoes.png',
+    'assets/image_shoes.png',
+    'assets/image_shoes.png',
+  ];
+
   @override
   Widget build(BuildContext context) {
     Widget indicator(int index) {
@@ -26,6 +38,18 @@ class _ProductPageState extends State<ProductPage> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: currentIndex == index ? primaryColor : Color(0xFFC4C4C4),
+        ),
+      );
+    }
+
+    Widget familiarShoesCard(String imageUrl) {
+      return Container(
+        margin: EdgeInsets.only(right: 16),
+        width: 54,
+        height: 54,
+        decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage(imageUrl)),
+          borderRadius: BorderRadius.circular(6),
         ),
       );
     }
@@ -92,6 +116,8 @@ class _ProductPageState extends State<ProductPage> {
     }
 
     content() {
+      int index = -1;
+
       return Container(
         width: double.infinity,
         margin: EdgeInsets.only(top: 17),
@@ -191,6 +217,80 @@ class _ProductPageState extends State<ProductPage> {
                 ),
               ],
             ),
+          ),
+          // NOTE: FIMILIAR SHoes
+          Container(
+            width: double.infinity,
+            margin: EdgeInsets.only(top: defaultMargin),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+                child: Text(
+                  'Fimiliar Shoes',
+                  style: primaryTextStyle.copyWith(fontWeight: medium),
+                ),
+              ),
+              SizedBox(
+                height: 12,
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: familiarShoes.map(
+                    (image) {
+                      index++;
+                      return Container(
+                          margin: EdgeInsets.only(
+                              left: index == 0 ? defaultMargin : 0),
+                          child: familiarShoesCard(image));
+                    },
+                  ).toList(),
+                ),
+              ),
+            ]),
+          ),
+
+          //NOTE: BUTTON
+          Container(
+            width: double.infinity,
+            margin: EdgeInsets.only(
+              top: defaultMargin,
+              left: defaultMargin,
+              right: defaultMargin,
+            ),
+            child: Row(children: [
+              Container(
+                width: 54,
+                height: 54,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/button_chat.png'),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 16,
+              ),
+              Expanded(
+                child: Container(
+                  height: 54,
+                  child: TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Add to Cart',
+                      style: primaryTextStyle.copyWith(
+                          fontSize: 16, fontWeight: semiBold),
+                    ),
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)),
+                      backgroundColor: primaryColor,
+                    ),
+                  ),
+                ),
+              ),
+            ]),
           ),
         ]),
       );
