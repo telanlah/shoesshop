@@ -20,7 +20,7 @@ class AuthProvider with ChangeNotifier {
   }) async {
     try {
       UserModel user = await AuthService().register(
-        name: name,
+        name : name,
         username: username,
         email: email,
         password: password,
