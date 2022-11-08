@@ -1,11 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shamo/providers/auth_provider.dart';
 import 'package:shamo/theme.dart';
 
 class SignUpPage extends StatelessWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+  TextEditingController nameController = TextEditingController(text: '');
+  TextEditingController usernameController = TextEditingController(text: '');
+  TextEditingController emailController = TextEditingController(text: '');
+  TextEditingController passwordController = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
+    handlesignup() async {
+      // try {
+      if (await authProvider.register(
+        name: nameController.text,
+        username: usernameController.text,
+        email: emailController.text,
+        password: passwordController.text,
+      )) {
+        Navigator.pushNamed(context, '/home');
+      }
+      // } catch (e) {
+      //   print(e);
+      // }
+    }
+
     Widget header() {
       return Container(
         margin: EdgeInsets.only(top: 30),
@@ -60,6 +82,7 @@ class SignUpPage extends StatelessWidget {
                   ),
                   Expanded(
                       child: TextFormField(
+                          controller: nameController,
                           style: primaryTextStyle,
                           decoration: InputDecoration.collapsed(
                             hintText: 'Your Full Name',
@@ -105,6 +128,7 @@ class SignUpPage extends StatelessWidget {
                   ),
                   Expanded(
                       child: TextFormField(
+                          controller: usernameController,
                           style: primaryTextStyle,
                           decoration: InputDecoration.collapsed(
                             hintText: 'Your Username',
@@ -150,6 +174,7 @@ class SignUpPage extends StatelessWidget {
                   ),
                   Expanded(
                       child: TextFormField(
+                          controller: emailController,
                           style: primaryTextStyle,
                           decoration: InputDecoration.collapsed(
                             hintText: 'Your email Address',
@@ -195,6 +220,7 @@ class SignUpPage extends StatelessWidget {
                   ),
                   Expanded(
                       child: TextFormField(
+                          controller: passwordController,
                           obscureText: true,
                           style: primaryTextStyle,
                           decoration: InputDecoration.collapsed(
@@ -215,9 +241,7 @@ class SignUpPage extends StatelessWidget {
         width: double.infinity,
         margin: EdgeInsets.only(top: 30),
         child: TextButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/home'
-            );},
+          onPressed: handlesignup,
           style: TextButton.styleFrom(
               backgroundColor: primaryColor,
               shape: RoundedRectangleBorder(
