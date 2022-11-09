@@ -1,20 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shamo/pages/widgets/loading_button.dart';
 import 'package:shamo/providers/auth_provider.dart';
 import 'package:shamo/theme.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
   TextEditingController nameController = TextEditingController(text: '');
+
   TextEditingController usernameController = TextEditingController(text: '');
+
   TextEditingController emailController = TextEditingController(text: '');
+
   TextEditingController passwordController = TextEditingController(text: '');
+
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
 
     handlesignup() async {
-      // try {
+      setState(() {
+        isLoading = true;
+      });
+
       if (await authProvider.register(
         name: nameController.text,
         username: usernameController.text,
@@ -22,10 +36,20 @@ class SignUpPage extends StatelessWidget {
         password: passwordController.text,
       )) {
         Navigator.pushNamed(context, '/home');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Gagal Register',
+              textAlign: TextAlign.center,
+            ),
+            backgroundColor: alertColor,
+          ),
+        );
       }
-      // } catch (e) {
-      //   print(e);
-      // }
+      setState(() {
+        isLoading = false;
+      });
     }
 
     Widget header() {
@@ -288,7 +312,7 @@ class SignUpPage extends StatelessWidget {
           usernameInput(),
           emailInput(),
           passwordInput(),
-          signUpButton(),
+          isLoading ? LoadingButton() : signUpButton(),
           Spacer(),
           footer()
         ]),
