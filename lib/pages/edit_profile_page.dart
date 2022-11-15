@@ -1,12 +1,24 @@
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import 'package:shamo/theme.dart';
+
+import '../models/user_model.dart';
+import '../providers/auth_provider.dart';
 
 class EditProfilePage extends StatelessWidget {
   const EditProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of(context);
+    UserModel user = authProvider.user;
+
+    splitUrl(String url) {
+      var spliturl = url.split('&');
+      var splitted = spliturl[0] + '&' + spliturl[2] + '&' + spliturl[1];
+      return splitted;
+    }
+
     header() {
       return AppBar(
         leading: IconButton(
@@ -42,7 +54,7 @@ class EditProfilePage extends StatelessWidget {
           TextFormField(
             style: primaryTextStyle,
             decoration: InputDecoration(
-              hintText: 'Frengki Limbong',
+              hintText: user.name,
               hintStyle: primaryTextStyle,
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
@@ -66,7 +78,7 @@ class EditProfilePage extends StatelessWidget {
           TextFormField(
             style: primaryTextStyle,
             decoration: InputDecoration(
-              hintText: '@frengkiller',
+              hintText: '@${user.username}',
               hintStyle: primaryTextStyle,
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
@@ -90,7 +102,7 @@ class EditProfilePage extends StatelessWidget {
           TextFormField(
             style: primaryTextStyle,
             decoration: InputDecoration(
-              hintText: 'frengkiller@gmail.com',
+              hintText: user.email,
               hintStyle: primaryTextStyle,
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
@@ -117,7 +129,8 @@ class EditProfilePage extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                image: AssetImage('assets/image_profile.png'),
+                fit: BoxFit.fill,
+                image: NetworkImage(splitUrl(user.profilePhotoUrl)),
               ),
             ),
           ),

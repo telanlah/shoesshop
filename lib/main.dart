@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shamo/pages/cart_page.dart';
 import 'package:shamo/pages/checkout_page.dart';
@@ -12,7 +11,10 @@ import 'package:shamo/pages/sign_in_page.dart';
 import 'package:shamo/pages/sign_up_page.dart';
 import 'package:shamo/pages/splash_page.dart';
 import 'package:shamo/providers/auth_provider.dart';
-import 'package:shamo/theme.dart';
+import 'package:shamo/providers/cart_provider.dart';
+import 'package:shamo/providers/product_provider.dart';
+import 'package:shamo/providers/transaction_provider.dart';
+import 'package:shamo/providers/wishlist_provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -25,7 +27,19 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => AuthProvider(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ProductProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => WishlistProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CartProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => TransactionProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -36,7 +50,6 @@ class MyApp extends StatelessWidget {
           '/home': (context) => MainPage(),
           '/detail-chat': (context) => DetailChatPage(),
           '/edit-profile': (context) => EditProfilePage(),
-          '/product': (context) => ProductPage(),
           '/cart': (context) => CartPage(),
           '/checkout': (context) => CheckoutPage(),
           '/checkout-success': (context) => CheckoutSuccessPage(),

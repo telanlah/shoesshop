@@ -52,14 +52,12 @@ class AuthService {
       'email': email,
       'password': password,
     });
-    print(url);
-    print(body);
     var response = await http.post(
       Uri.parse(url),
       headers: headers,
       body: body,
     );
-    print(response.body);
+    print(response.statusCode);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body)['data'];
       UserModel user = UserModel.fromJson(data['user']);

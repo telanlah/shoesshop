@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "264514029891",
+    "project_id": "shoesshop-e1d68",
+    "storage_bucket": "shoesshop-e1d68.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:264514029891:android:4ba30e3561b1f1d02847f6",
+        "android_client_info": {
+          "package_name": "com.frengki.shamo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "264514029891-or5g82806sv0p95pu09rrojg4cjrrc0a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOXhubNnKAXg0_NrA0E6eacmSLq6nMPiQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "264514029891-or5g82806sv0p95pu09rrojg4cjrrc0a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
