@@ -52,3 +52,18 @@ class ProductModel {
     };
   }
 }
+
+class UninitializedProductModel extends ProductModel {
+  UninitializedProductModel(
+      {String? name,
+      String? price,
+      String? description,
+      String? category,
+      String? galleries})
+      : super(
+            name: '',
+            price: 0,
+            description: '',
+            category: CategoryModel(name: ''),
+            galleries: []);
+}
