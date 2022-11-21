@@ -46,9 +46,9 @@ class ProductModel {
       'description': description,
       'tags': tags,
       'category': category.toJson(),
-      'createdAt': createdAt.toString(),
-      'updatedAt': updatedAt.toString(),
-      'galleries': galleries.map((gallery) => gallery.toJson()),
+      'created_at': createdAt.toString(),
+      'updated_at': updatedAt.toString(),
+      'galleries': galleries.map((gallery) => gallery.toJson()).toList(),
     };
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shamo/models/message_model.dart';
 import 'package:shamo/models/product_model.dart';
 import 'package:shamo/pages/widgets/chat_bubble.dart';
 import 'package:shamo/providers/auth_provider.dart';
@@ -7,7 +8,7 @@ import 'package:shamo/services/message_service.dart';
 import 'package:shamo/theme.dart';
 
 class DetailChatPage extends StatefulWidget {
-  late ProductModel product;
+  ProductModel product;
 
   DetailChatPage({
     Key? key,
@@ -187,20 +188,27 @@ class _DetailChatPageState extends State<DetailChatPage> {
     }
 
     Widget content() {
-      return ListView(
-        padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-        children: [
-          ChatBubble(
-            hasProduct: true,
-            isSender: true,
-            text: 'Hi, this item is still available?',
-          ),
-          ChatBubble(
-            isSender: false,
-            text: 'Good night, This item is only available in size 42 and 43',
-          ),
-        ],
-      );
+      return StreamBuilder<List<MessageModel>>(
+          stream: MessageService()
+              .getMessagesByUserId(userId: authProvider.user.id),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListView(
+                padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+                children: snapshot.data!
+                    .map((MessageModel message) => ChatBubble(
+                          isSender: message.isFromUser,
+                          text: message.message,
+                          product: message.product,
+                        ))
+                    .toList(),
+              );
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          });
     }
 
     return Scaffold(

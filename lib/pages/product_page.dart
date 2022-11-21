@@ -156,7 +156,9 @@ class _ProductPageState extends State<ProductPage> {
                   child: Icon(Icons.chevron_left),
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, '/cart');
+                  },
                   child: Icon(
                     Icons.shopping_bag,
                     color: backgroundColor1,
@@ -363,10 +365,12 @@ class _ProductPageState extends State<ProductPage> {
               GestureDetector(
                 onTap: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              DetailChatPage(product: widget.product),),);
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          DetailChatPage(product: widget.product),
+                    ),
+                  );
                 },
                 child: Container(
                   width: 54,
